@@ -123,10 +123,40 @@
   .cue .ck{flex:0 0 auto;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
     color:var(--accent);border:1px solid var(--accent-dim);border-radius:5px;padding:3px 6px;height:fit-content;margin-top:1px}
 
+  /* Per-set check pattern (Strong/Hevy-style) */
+  .srow{display:grid;grid-template-columns:24px 1fr 1fr 44px;gap:8px;align-items:center;margin-bottom:8px}
+  .srow .sn{font-family:var(--mono);font-size:11px;color:var(--muted2);text-align:center}
+  .setcheck{
+    width:44px;height:44px;border-radius:9px;background:var(--surface3);border:1px solid var(--line2);
+    color:var(--muted);font-size:18px;font-weight:700;cursor:pointer;transition:.15s;display:grid;place-items:center;
+    font-family:var(--disp);
+  }
+  .setcheck:hover{border-color:var(--text);color:var(--text)}
+  .setcheck.checked{background:#1a9d52;border-color:#1a9d52;color:#fff;box-shadow:0 2px 8px -2px rgba(26,157,82,.4)}
+  .srow.locked .field input{background:rgba(26,157,82,.06);border-color:rgba(26,157,82,.2);color:var(--text)}
+  .srow.locked .field input:focus{border-color:var(--accent)}
+
+  /* Exercise-complete state */
+  .card.lift.complete{border-color:#1a9d52;box-shadow:0 4px 16px -8px rgba(26,157,82,.3), var(--shadow)}
+  .card.lift.complete .ix{color:#1a9d52}
+  .card.lift.complete .chead .name::after{
+    content:" ✓";color:#1a9d52;font-family:var(--sans);font-weight:800;font-size:18px;
+  }
+  /* When complete, every red accent turns green */
+  .card.lift.complete .cue .ck{color:#1a9d52;border-color:rgba(26,157,82,.35);background:rgba(26,157,82,.06)}
+  .card.lift.complete .tag.chest{color:#1a9d52;background:rgba(26,157,82,.1)}
+  .card.lift.complete .logbtn{background:#1a9d52}
+  .card.lift.complete .logbtn:active{transform:scale(.985)}
+  .card.lift.complete .logbtn.logged{background:#16864a}
+  .card.lift.complete .swapinfo .pill{background:rgba(26,157,82,.18);color:#16864a}
+  .card.lift.complete .swapinfo button{color:#1a9d52}
+  .card.lift.complete .fb.pr .fbinner{border-color:#1a9d52;background:rgba(26,157,82,.06)}
+  .card.lift.complete .fb.pr .v{color:#16864a}
+  .card.lift.complete .fb.up .fbinner{border-color:rgba(26,157,82,.35)}
+  .card.lift.complete .fb.up .v{color:#1a9d52}
+
   /* Set logger */
   .sets-grid{padding:2px 15px 4px}
-  .srow{display:grid;grid-template-columns:30px 1fr 1fr;gap:8px;align-items:center;margin-bottom:8px}
-  .srow .sn{font-family:var(--mono);font-size:11px;color:var(--muted2);text-align:center}
   .field{position:relative}
   .field input{width:100%;background:var(--surface2);border:1px solid var(--line2);border-radius:8px;
     color:var(--text);font-family:var(--mono);font-size:16px;font-weight:600;padding:11px 10px 11px 12px;text-align:left;outline:none;transition:.12s}
@@ -252,6 +282,29 @@
     font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;border-radius:7px;cursor:pointer;margin-right:8px}
   .exportbtn:hover{color:var(--text);border-color:var(--text)}
 
+  /* Session summary */
+  .sum-h{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .sum-kicker{font-family:var(--mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.22em;font-weight:500;margin-bottom:6px}
+  .sum-h h3{margin-bottom:4px}
+  .sum-date{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em}
+  .sum-stats{display:flex;gap:8px;margin-bottom:14px}
+  .sum-stat{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 8px;text-align:center}
+  .sum-stat .ss-n{font-family:var(--disp);font-weight:800;font-size:30px;color:var(--accent);line-height:1}
+  .sum-stat .ss-l{font-family:var(--mono);font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:5px;font-weight:500}
+  .sum-row{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .sum-row.pr{border-color:var(--pr);background:rgba(156,10,18,.04);box-shadow:var(--shadow)}
+  .sum-row .srn{font-family:var(--disp);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:-.01em;line-height:1.15}
+  .sum-row .srs{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+  .sum-row .sre{font-family:var(--mono);font-size:11px;color:var(--accent);font-weight:600;flex:0 0 auto;text-align:right}
+  .prtag{background:var(--pr);color:#fff;padding:2px 5px;border-radius:3px;font-size:9px;font-family:var(--mono);font-weight:600;letter-spacing:.08em;margin-left:6px;vertical-align:1px}
+  .sum-empty{text-align:center;padding:30px 10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;line-height:1.6}
+
+  /* Finish session button */
+  .finishbtn{width:100%;background:var(--text);color:#fff;border:none;font-family:var(--disp);font-weight:800;font-size:17px;
+    letter-spacing:.02em;text-transform:uppercase;padding:16px;border-radius:11px;cursor:pointer;margin-top:14px;transition:.15s;box-shadow:var(--shadow)}
+  .finishbtn:active{transform:scale(.99)}
+  .finishbtn:hover{background:var(--accent)}
+
   .loading{text-align:center;padding:60px 0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
   .blink{animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.3}}
 </style>
@@ -265,6 +318,19 @@
     <div class="mh-sub">Pattern: <b id="swapPattern">—</b> · history follows the lift name, not the slot</div>
     <div id="swapOpts"></div>
     <button class="sw-close" onclick="closeSwap()">Cancel</button>
+  </div>
+</div>
+
+<!-- Session summary modal -->
+<div class="modal-bg" id="summaryModal">
+  <div class="modal">
+    <div class="sum-h">
+      <div class="sum-kicker">Session Complete</div>
+      <h3 id="sessionDayName">—</h3>
+      <div class="sum-date" id="sessionDate">—</div>
+    </div>
+    <div id="summaryBody"></div>
+    <button class="sw-close" onclick="closeSummary()">Done</button>
   </div>
 </div>
 
@@ -593,13 +659,20 @@ let DATA = {log:{}, done:{}, notes:{}, sessNotes:{}, swaps:{}};
 async function loadData(){
   try{
     const r = localStorage.getItem(KEY);
-    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{}};
-  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{}}; }
+    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{}};
+  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{}}; }
   if(!DATA.log) DATA.log={};
   if(!DATA.done) DATA.done={};
   if(!DATA.notes) DATA.notes={};
   if(!DATA.sessNotes) DATA.sessNotes={};
   if(!DATA.swaps) DATA.swaps={};
+  if(!DATA.finished) DATA.finished={};
+  // Garbage collect: remove yesterday's and older "finished" flags
+  const todayStr = new Date().toISOString().slice(0,10);
+  Object.keys(DATA.finished).forEach(k => {
+    const parts = k.split("|");
+    if(parts.length >= 3 && parts[2] !== todayStr) delete DATA.finished[k];
+  });
   // Migrate any old ex.id-keyed log entries to lift-name keys
   migrateLog();
 }
@@ -675,6 +748,13 @@ function liftCard(ex, idx){
   const currentName = liftName(ex.id, ex.name);
   const swapped = currentName !== ex.name;
   const last = lastEntry(currentName);
+  // Decide whether to prefill inputs:
+  // - If last entry is from today AND we haven't "finished" this day, prefill with today's values so user can keep editing
+  // - Otherwise (new day, or session was finished), inputs start empty
+  const todayStr = today();
+  const sessFinishedKey = "finished|" + ex.id + "|" + todayStr;
+  const isFinished = !!DATA.finished?.[sessFinishedKey];
+  const useTodayPrefill = last && last.date === todayStr && !isFinished;
   let lastHTML = `<span class="lbl">Last</span><span class="sets" style="color:var(--muted2)">— no data yet —</span>`;
   if(last){
     const sets = last.sets.filter(s=>s.w>0).map(s=>`${s.w}×${s.r}`).join("  ");
@@ -683,9 +763,14 @@ function liftCard(ex, idx){
                (b?`<span class="e1">e1RM <b>${b.e}</b></span>`:"");
   }
   let rows="";
+  // A set is "checked" if it exists in today's logged entry with values
+  const todayLog = (DATA.log[currentName] || []).find(e => e.date === todayStr);
+  const checkedSets = todayLog ? todayLog.sets.map(s => s.w > 0 && s.r > 0) : [];
+  const allChecked = checkedSets.length >= ex.sets && checkedSets.slice(0, ex.sets).every(Boolean);
   for(let i=0;i<ex.sets;i++){
-    const pv = last && last.sets[i] ? last.sets[i] : null;
-    rows += `<div class="srow">
+    const pv = useTodayPrefill && last.sets[i] ? last.sets[i] : null;
+    const isChecked = !!checkedSets[i];
+    rows += `<div class="srow ${isChecked ? 'locked' : ''}">
       <div class="sn">${i+1}</div>
       <div class="field">${i===0?'<span class="ph">Weight</span>':''}
         <input inputmode="decimal" data-f="w" data-ex="${ex.id}" data-i="${i}" value="${pv&&pv.w?pv.w:''}" placeholder="0">
@@ -693,11 +778,12 @@ function liftCard(ex, idx){
       <div class="field">${i===0?'<span class="ph">Reps</span>':''}
         <input inputmode="numeric" data-f="r" data-ex="${ex.id}" data-i="${i}" value="${pv&&pv.r?pv.r:''}" placeholder="0">
         <span class="u">rep</span></div>
+      <button class="setcheck ${isChecked ? 'checked' : ''}" data-act="setcheck" data-ex="${ex.id}" data-i="${i}" aria-label="Mark set complete">${isChecked ? '✓' : '○'}</button>
     </div>`;
   }
   const tags = `<span class="tag rx">${ex.sets} × ${ex.rx}</span>` + (ex.tags||[]).map(tagHTML).join("");
   const noteVal = (DATA.notes[currentName] || "").replace(/"/g,'&quot;');
-  return `<div class="card lift" data-card="${ex.id}" data-sets="${ex.sets}">
+  return `<div class="card lift ${allChecked ? 'complete' : ''}" data-card="${ex.id}" data-sets="${ex.sets}">
     <div class="chead">
       <div class="ix">${idx}</div>
       <div class="ttl"><div class="name">${currentName}</div><div class="tags">${tags}</div></div>
@@ -713,7 +799,7 @@ function liftCard(ex, idx){
     </div>
     <div class="fb" data-fb="${ex.id}"><div class="fbinner"><span class="bolt"></span><span class="v"></span></div></div>
     <div class="cfoot">
-      <button class="logbtn" data-act="log" data-ex="${ex.id}">Log Sets</button>
+      <button class="logbtn" data-act="log" data-ex="${ex.id}">${allChecked ? 'Exercise Complete ✓' : 'Mark All Complete'}</button>
       <button class="histbtn" data-act="hist" data-ex="${ex.id}">History</button>
     </div>
     <div class="liftnote">
@@ -765,6 +851,8 @@ function renderPanel(){
     <div class="sn-h">Session Notes — ${d.name} · ${fmtDate(today())}</div>
     <textarea data-act="sessnote" data-day="${d.id}" placeholder="Energy, pump, sleep, what felt off, anything to remember for next session...">${sessVal}</textarea>
   </div>`;
+  // Finish session button
+  html += `<button class="finishbtn" data-act="finish">Finish Session ✓</button>`;
   mainEl.innerHTML = `<div class="panel show">${html}</div>`;
 }
 
@@ -823,8 +911,7 @@ async function logExercise(slotId){
   const currentName = liftName(slotId, slot.name);
   const sets=readSets(slotId).filter(s=>s.w>0 || s.r>0);
   if(!sets.length){ flashFB(slotId,"flat","","Enter at least one set."); return; }
-  const beforeBest=allTimeBestE1(currentName,true);
-  const lastE=(()=>{ const le=lastEntry(currentName); return le?sessionE1(le):0; })();
+  // Mark All Complete — write all entered sets as today's logged sets
   DATA.log[currentName]=DATA.log[currentName]||[];
   const arr=DATA.log[currentName];
   if(arr.length && arr[arr.length-1].date===today()){ arr[arr.length-1]={date:today(),sets}; }
@@ -832,19 +919,15 @@ async function logExercise(slotId){
   if(arr.length>60) arr.splice(0,arr.length-60);
   await saveData();
 
-  const todayE=sessionE1({sets});
-  const btn=document.querySelector(`.logbtn[data-ex="${slotId}"]`);
-  if(btn){ btn.textContent="Logged ✓"; btn.classList.add("logged"); setTimeout(()=>{btn.textContent="Log Sets";btn.classList.remove("logged");},1600); }
-
-  if(beforeBest>0 && todayE>beforeBest){
-    flashFB(slotId,"pr","★",`PR — e1RM ${todayE}, up ${todayE-beforeBest} from your best`);
-  } else if(lastE>0){
-    const d=todayE-lastE;
-    if(d>0) flashFB(slotId,"up","▲",`+${d} e1RM vs last session — progressing`);
-    else if(d===0) flashFB(slotId,"flat","■",`Matched last session (e1RM ${todayE}) — push next time`);
-    else flashFB(slotId,"down","▼",`${d} e1RM vs last — log it, recover, rebuild`);
-  } else {
-    flashFB(slotId,"up","●",`Baseline set — e1RM ${todayE}. Beat it next time.`);
+  // Re-render this card so all checks light up green
+  const card = document.querySelector(`.card[data-card="${slotId}"]`);
+  if(card){
+    // Update each row visually
+    for(let i = 0; i < sets.length; i++){
+      updateRowState(slotId, i);
+    }
+    delete card.dataset.firedFB; // allow feedback to fire on the complete state
+    updateCardCompleteState(slotId);
   }
   refreshLast(slotId);
 }
@@ -896,6 +979,110 @@ async function toggleDone(id){
   await saveData();
   const btn=document.querySelector(`.donebtn[data-id="${id}"]`);
   if(btn){ const on=DATA.done[id]===today(); btn.classList.toggle("done",on); btn.textContent=on?"✓":""; }
+}
+
+//// ---------- PER-SET CHECK ----------
+async function toggleSetCheck(slotId, setIdx){
+  const slot = findSlot(slotId); if(!slot) return;
+  const currentName = liftName(slotId, slot.name);
+  const todayStr = today();
+
+  // Read current input values for this set
+  const wEl = document.querySelector(`input[data-ex="${slotId}"][data-f="w"][data-i="${setIdx}"]`);
+  const rEl = document.querySelector(`input[data-ex="${slotId}"][data-f="r"][data-i="${setIdx}"]`);
+  const w = wEl ? parseFloat(wEl.value) || 0 : 0;
+  const r = rEl ? parseInt(rEl.value) || 0 : 0;
+
+  // Make sure today's entry exists
+  DATA.log[currentName] = DATA.log[currentName] || [];
+  let entry = DATA.log[currentName].find(e => e.date === todayStr);
+  if(!entry){
+    entry = {date: todayStr, sets: []};
+    DATA.log[currentName].push(entry);
+  }
+  // Ensure sets array is long enough
+  while(entry.sets.length <= setIdx) entry.sets.push({w:0, r:0});
+
+  const wasChecked = entry.sets[setIdx].w > 0 && entry.sets[setIdx].r > 0;
+
+  if(wasChecked){
+    // Uncheck — clear this set's values in storage (keep input values for re-edit)
+    entry.sets[setIdx] = {w:0, r:0};
+    // Cleanup: if no sets have data, remove the entry entirely
+    if(entry.sets.every(s => !s.w && !s.r)){
+      DATA.log[currentName] = DATA.log[currentName].filter(e => e !== entry);
+      if(DATA.log[currentName].length === 0) delete DATA.log[currentName];
+    }
+  } else {
+    // Check — record this set with current input values
+    if(!w || !r){ flashFB(slotId, "flat", "", "Enter weight and reps before checking."); return; }
+    entry.sets[setIdx] = {w, r};
+    // Cap log history
+    if(DATA.log[currentName].length > 60) DATA.log[currentName].splice(0, DATA.log[currentName].length - 60);
+  }
+
+  await saveData();
+
+  // Update just this row + card complete state + last line + button label
+  updateRowState(slotId, setIdx);
+  updateCardCompleteState(slotId);
+  refreshLast(slotId);
+}
+
+function updateRowState(slotId, setIdx){
+  const slot = findSlot(slotId); if(!slot) return;
+  const currentName = liftName(slotId, slot.name);
+  const todayStr = today();
+  const entry = (DATA.log[currentName] || []).find(e => e.date === todayStr);
+  const set = entry ? entry.sets[setIdx] : null;
+  const checked = !!(set && set.w > 0 && set.r > 0);
+  const btn = document.querySelector(`.setcheck[data-ex="${slotId}"][data-i="${setIdx}"]`);
+  if(btn){
+    btn.classList.toggle("checked", checked);
+    btn.textContent = checked ? "✓" : "○";
+  }
+  const row = btn ? btn.closest(".srow") : null;
+  if(row) row.classList.toggle("locked", checked);
+}
+
+function updateCardCompleteState(slotId){
+  const slot = findSlot(slotId); if(!slot) return;
+  const currentName = liftName(slotId, slot.name);
+  const card = document.querySelector(`.card[data-card="${slotId}"]`); if(!card) return;
+  const targetSets = parseInt(card.dataset.sets, 10);
+  const todayStr = today();
+  const entry = (DATA.log[currentName] || []).find(e => e.date === todayStr);
+  let checkedCount = 0;
+  if(entry){
+    for(let i = 0; i < targetSets; i++){
+      if(entry.sets[i] && entry.sets[i].w > 0 && entry.sets[i].r > 0) checkedCount++;
+    }
+  }
+  const allChecked = checkedCount >= targetSets;
+  card.classList.toggle("complete", allChecked);
+  const logBtn = card.querySelector(".logbtn");
+  if(logBtn) logBtn.textContent = allChecked ? "Exercise Complete ✓" : "Mark All Complete";
+
+  // If we just hit "all checked" via per-set, fire the PR/progress feedback
+  if(allChecked && entry){
+    const beforeBest = allTimeBestE1(currentName, true);
+    const todayE = sessionE1(entry);
+    if(!card.dataset.firedFB || card.dataset.firedFB !== todayStr){
+      card.dataset.firedFB = todayStr;
+      if(beforeBest > 0 && todayE > beforeBest){
+        flashFB(slotId, "pr", "★", `PR — e1RM ${todayE}, up ${todayE - beforeBest} from your best`);
+      } else if(beforeBest > 0){
+        const d = todayE - beforeBest;
+        if(d >= 0) flashFB(slotId, "up", "▲", `e1RM ${todayE} — matched or beat your best.`);
+        else flashFB(slotId, "down", "▼", `${d} e1RM vs best — log it, recover, rebuild`);
+      } else {
+        flashFB(slotId, "up", "●", `Baseline set — e1RM ${todayE}. Beat it next time.`);
+      }
+    }
+  } else {
+    // Clear fired flag if we unchecked
+    if(!allChecked) delete card.dataset.firedFB;
+  }
 }
 
 //// ---------- SWAP ----------
@@ -957,6 +1144,79 @@ function saveSessNote(dayId, value){
   saveData();
 }
 
+//// ---------- SESSION SUMMARY ----------
+function openSessionSummary(){
+  const d = PROGRAM.find(x => x.id === active);
+  if(!d || d.cardio) return;
+
+  const todayStr = today();
+  const liftsLogged = [];
+  let totalSets = 0;
+  let prCount = 0;
+
+  (d.blocks||[]).forEach(bl => {
+    if(bl.type !== "lift") return;
+    (bl.items||[]).forEach(item => {
+      const currentName = liftName(item.id, item.name);
+      const arr = DATA.log[currentName] || [];
+      const todayLog = arr.find(e => e.date === todayStr);
+      if(todayLog){
+        const validSets = todayLog.sets.filter(s => s.w > 0 && s.r > 0);
+        if(validSets.length){
+          const setsStr = validSets.map(s => `${s.w}×${s.r}`).join("  ");
+          const best = bestSet(validSets);
+          // PR check: best from today > best from any prior date
+          const priorBest = allTimeBestE1(currentName, true);
+          const isPR = priorBest > 0 && best && best.e > priorBest;
+          liftsLogged.push({name: currentName, sets: setsStr, e1: best ? best.e : 0, isPR});
+          totalSets += validSets.length;
+          if(isPR) prCount++;
+        }
+      }
+    });
+  });
+
+  document.getElementById("sessionDayName").textContent = d.name;
+  document.getElementById("sessionDate").textContent = new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
+
+  const body = document.getElementById("summaryBody");
+  if(liftsLogged.length === 0){
+    body.innerHTML = `<div class="sum-empty">Nothing logged today yet.<br>Log at least one lift to wrap a session.</div>`;
+  } else {
+    let html = `<div class="sum-stats">
+      <div class="sum-stat"><div class="ss-n">${liftsLogged.length}</div><div class="ss-l">Lifts</div></div>
+      <div class="sum-stat"><div class="ss-n">${totalSets}</div><div class="ss-l">Sets</div></div>
+      <div class="sum-stat"><div class="ss-n">${prCount}</div><div class="ss-l">PRs</div></div>
+    </div>`;
+    html += liftsLogged.map(l => `
+      <div class="sum-row ${l.isPR ? 'pr' : ''}">
+        <div style="flex:1;min-width:0">
+          <div class="srn">${l.name}${l.isPR ? '<span class="prtag">PR</span>' : ''}</div>
+          <div class="srs">${l.sets}</div>
+        </div>
+        <div class="sre">e1RM<br><b style="color:var(--text);font-size:13px">${l.e1}</b></div>
+      </div>
+    `).join("");
+    if(prCount > 0){
+      html += `<div style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--pr);letter-spacing:.05em;text-align:center;font-weight:600">★ ${prCount} ${prCount === 1 ? 'PR' : 'PRs'} this session — beat them next time.</div>`;
+    }
+    // Mark all of this day's lifts as "finished" for today, so inputs clear on next render
+    (d.blocks||[]).forEach(bl => {
+      if(bl.type !== "lift") return;
+      (bl.items||[]).forEach(item => {
+        DATA.finished[`finished|${item.id}|${todayStr}`] = true;
+      });
+    });
+    saveData();
+  }
+  document.getElementById("summaryModal").classList.add("open");
+}
+function closeSummary(){
+  document.getElementById("summaryModal").classList.remove("open");
+  // Re-render the panel so inputs visually clear
+  renderPanel();
+}
+
 //// ---------- EVENTS ----------
 tabsEl.addEventListener("click",e=>{
   const t=e.target.closest(".tab"); if(!t)return;
@@ -973,6 +1233,8 @@ mainEl.addEventListener("click",e=>{
   else if(act==="done") toggleDone(b.dataset.id);
   else if(act==="swap") openSwap(b.dataset.ex);
   else if(act==="revert") revertSwap(b.dataset.ex);
+  else if(act==="finish") openSessionSummary();
+  else if(act==="setcheck") toggleSetCheck(b.dataset.ex, parseInt(b.dataset.i, 10));
 });
 // Notes — save on blur (not every keystroke)
 mainEl.addEventListener("blur", e => {
