@@ -305,6 +305,89 @@
   .finishbtn:active{transform:scale(.99)}
   .finishbtn:hover{background:var(--accent)}
 
+  /* Aux item edit */
+  .aux-edit{
+    background:var(--surface3);border:1px solid var(--line);color:var(--muted);
+    width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:17px;line-height:1;transition:.12s;flex:0 0 auto;
+    margin-right:8px;font-family:var(--disp);font-weight:700;letter-spacing:-.05em
+  }
+  .aux-edit:hover{color:var(--accent);border-color:var(--accent)}
+  .add-aux{
+    background:transparent;border:1px dashed var(--line2);color:var(--muted);
+    font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+    padding:5px 11px;border-radius:6px;cursor:pointer;transition:.12s;flex:0 0 auto
+  }
+  .add-aux:hover{color:var(--accent);border-color:var(--accent);background:rgba(216,20,31,.04)}
+  .seclabel .seclabel-text{flex:0 0 auto}
+  .seclabel{display:flex;align-items:center;gap:10px}
+  .seclabel:after{flex:1}
+  .aux-empty{
+    background:var(--surface);border:1px dashed var(--line2);border-radius:10px;
+    padding:18px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:.05em;margin-bottom:11px
+  }
+  .aux-delete{
+    width:100%;background:rgba(216,20,31,.08);color:var(--accent);border:1px solid rgba(216,20,31,.25);
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:13px;border-radius:9px;margin-top:6px;cursor:pointer;font-weight:600
+  }
+  .aux-delete:hover{background:rgba(216,20,31,.14)}
+  .aux-revert{
+    width:100%;background:var(--surface);color:var(--muted);border:1px solid var(--line);
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:13px;border-radius:9px;margin-top:6px;cursor:pointer;font-weight:600
+  }
+  .aux-revert:hover{color:var(--text);border-color:var(--text)}
+
+  /* Cardio log UI */
+  .cd-form{display:flex;flex-direction:column;gap:0}
+  .cd-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:14px 0 7px}
+  .cd-label .cd-u{color:var(--muted2);letter-spacing:.04em;font-weight:500;text-transform:none;margin-left:6px}
+  .cd-types{display:flex;flex-wrap:wrap;gap:6px}
+  .cd-types button{
+    background:var(--surface);border:1px solid var(--line2);color:var(--muted);
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    padding:8px 13px;border-radius:8px;cursor:pointer;transition:.12s
+  }
+  .cd-types button:hover{color:var(--text);border-color:var(--text)}
+  .cd-types button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .cd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0}
+  .cd-grid input,#cdNotes{
+    width:100%;background:var(--surface2);border:1px solid var(--line2);
+    color:var(--text);font-family:var(--mono);font-size:15px;font-weight:600;padding:11px 12px;border-radius:9px;outline:none;transition:.12s
+  }
+  #cdNotes{font-family:var(--sans);font-size:14px;font-weight:500;min-height:60px;resize:vertical;line-height:1.4}
+  .cd-grid input:focus,#cdNotes:focus{border-color:var(--accent);background:#fff}
+  .cd-actions{display:flex;gap:8px;margin-top:18px}
+  .cd-save{flex:2;background:var(--accent);color:#fff;border:none;font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:.02em;text-transform:uppercase;padding:13px;border-radius:9px;cursor:pointer;box-shadow:var(--shadow)}
+  .cd-save:active{transform:scale(.99)}
+
+  /* Cardio panel */
+  .cardio-actions{margin-bottom:18px}
+  .cardio-log-btn{
+    width:100%;background:var(--accent);color:#fff;border:none;font-family:var(--disp);font-weight:800;font-size:16px;
+    letter-spacing:.02em;text-transform:uppercase;padding:14px;border-radius:10px;cursor:pointer;box-shadow:var(--shadow)
+  }
+  .cardio-log-btn:active{transform:scale(.99)}
+  .cardio-list{margin-top:8px}
+  .cardio-session{
+    background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:12px
+  }
+  .cs-main{flex:1;min-width:0}
+  .cs-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .cs-type{font-family:var(--disp);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:-.01em;color:var(--text)}
+  .cs-date{font-family:var(--mono);font-size:10px;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
+  .cs-stats{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:5px}
+  .cs-stats b{color:var(--text);font-weight:600}
+  .cs-notes{font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;line-height:1.4}
+  .cs-del{
+    background:transparent;border:none;color:var(--muted2);font-size:16px;cursor:pointer;padding:4px 6px;border-radius:5px;flex:0 0 auto
+  }
+  .cs-del:hover{color:var(--accent);background:rgba(216,20,31,.06)}
+  .cardio-empty{
+    background:var(--surface);border:1px dashed var(--line2);border-radius:11px;padding:24px 16px;text-align:center;
+    font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:.05em
+  }
+
+  /* Loading */
   .loading{text-align:center;padding:60px 0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
   .blink{animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.3}}
 </style>
@@ -331,6 +414,63 @@
     </div>
     <div id="summaryBody"></div>
     <button class="sw-close" onclick="closeSummary()">Done</button>
+  </div>
+</div>
+
+<!-- Aux action modal (swap / add / delete prep & finisher items) -->
+<div class="modal-bg" id="auxModal">
+  <div class="modal">
+    <h3 id="auxTitle">—</h3>
+    <div class="mh-sub" id="auxSub">—</div>
+    <div id="auxOpts"></div>
+    <button class="aux-delete" id="auxDeleteBtn" style="display:none">Delete this item</button>
+    <button class="aux-revert" id="auxRevertBtn" style="display:none">Reset block to default</button>
+    <button class="sw-close" onclick="closeAuxModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Cardio log modal -->
+<div class="modal-bg" id="cardioModal">
+  <div class="modal">
+    <h3>Log Cardio</h3>
+    <div class="mh-sub">Today's session — date set automatically.</div>
+    <div class="cd-form">
+      <div class="cd-label">Type</div>
+      <div class="cd-types" id="cdTypes">
+        <button data-type="Run" class="active">Run</button>
+        <button data-type="Bike">Bike</button>
+        <button data-type="Stair">Stair</button>
+        <button data-type="Walk">Walk</button>
+        <button data-type="Tennis">Tennis</button>
+        <button data-type="Row">Row</button>
+        <button data-type="Ski">Ski</button>
+        <button data-type="Other">Other</button>
+      </div>
+      <div class="cd-grid">
+        <div>
+          <div class="cd-label">Duration <span class="cd-u">min</span></div>
+          <input type="number" inputmode="decimal" id="cdDuration" placeholder="0">
+        </div>
+        <div>
+          <div class="cd-label">Distance <span class="cd-u">mi · optional</span></div>
+          <input type="number" inputmode="decimal" id="cdDistance" placeholder="0">
+        </div>
+        <div>
+          <div class="cd-label">Avg HR <span class="cd-u">bpm · optional</span></div>
+          <input type="number" inputmode="numeric" id="cdHR" placeholder="0">
+        </div>
+        <div>
+          <div class="cd-label">RPE <span class="cd-u">1–10 · optional</span></div>
+          <input type="number" inputmode="numeric" id="cdRPE" placeholder="0" min="1" max="10">
+        </div>
+      </div>
+      <div class="cd-label">Notes</div>
+      <textarea id="cdNotes" placeholder="How it felt — pace, energy, anything to remember..."></textarea>
+      <div class="cd-actions">
+        <button class="sw-close" onclick="closeCardioModal()" style="flex:1">Cancel</button>
+        <button class="cd-save" onclick="saveCardio()">Log It</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -383,7 +523,7 @@ const PROGRAM = [
     name:"Strength A",
     desc:"Squat-led full body. Legs, chest, back, hinge, calf, delts, core — all hit. Whether this is your only lift of the week or one of four, you've covered the body. Strength range (6–8) on main lifts; top range = 8 across all sets, then add load and reset to 6.",
     blocks:[
-      {label:"Prep · ~8 min", type:"mob", items:[
+      {label:"Prep · ~8 min", type:"mob", pool:"warmup", items:[
         {id:"a_p1",name:"90/90 Hip Switches",rx:"5 / side"},
         {id:"a_p2",name:"Couch Stretch",rx:"45s / side"},
         {id:"a_p3",name:"Half-Kneel Hip Flexor + Reach",rx:"30s / side"},
@@ -405,7 +545,7 @@ const PROGRAM = [
       {label:"Strength Abs · Loaded", type:"lift", items:[
         {id:"a9",name:"Weighted Cable Crunch",sets:3,rx:"8–12",tags:["loaded core"],pattern:"core"},
       ]},
-      {label:"Core + Finisher", type:"aux", items:[
+      {label:"Core + Finisher", type:"aux", pool:"core", items:[
         {id:"a_f1",name:"Bird Dog",rx:"3 × 8 / side"},
         {id:"a_f2",name:"Dead Hang",rx:"2 × max — decompress"},
       ]},
@@ -416,7 +556,7 @@ const PROGRAM = [
     name:"Hypertrophy",
     desc:"Volume-led full body. Higher rep ranges, more isolation, pump-focused — 1–2 reps in reserve. Buffers the heavy days but complete on its own. Chase reps to the top of range, then add load.",
     blocks:[
-      {label:"Prep · ~6 min", type:"mob", items:[
+      {label:"Prep · ~6 min", type:"mob", pool:"warmup", items:[
         {id:"h_p1",name:"90/90 Hip Switches",rx:"5 / side"},
         {id:"h_p2",name:"Couch Stretch",rx:"45s / side"},
         {id:"h_p3",name:"Bird Dog",rx:"6 / side"},
@@ -434,12 +574,12 @@ const PROGRAM = [
         {id:"h9",name:"Triceps Pushdown",sets:3,rx:"12–15",tags:["arms"],pattern:"triceps"},
         {id:"h10",name:"Incline DB Curl",sets:3,rx:"12–15",tags:["arms"],pattern:"biceps"},
       ]},
-      {label:"Core · Volume", type:"aux", items:[
+      {label:"Core · Volume", type:"aux", pool:"core", items:[
         {id:"h_c1",name:"Hanging Leg Raise",rx:"3 × 15–20"},
         {id:"h_c2",name:"Cable Crunch",rx:"3 × 20"},
         {id:"h_c3",name:"Hollow Body Rocks",rx:"3 × 20"},
       ]},
-      {label:"Stretch / Decompress", type:"mob", items:[
+      {label:"Stretch / Decompress", type:"mob", pool:"cooldown", items:[
         {id:"h_s1",name:"Dead Hang",rx:"2 × 45–60s — spinal decompression"},
         {id:"h_s2",name:"Doorway Pec Stretch",rx:"30s / side"},
       ]},
@@ -450,7 +590,7 @@ const PROGRAM = [
     name:"Strength B",
     desc:"Hinge-led full body. Trap bar centers the load, sparing the lumbar spine. Posterior chain, vertical press, vertical pull, plus delts and core — full coverage in one day. Stand-alone complete.",
     blocks:[
-      {label:"Prep · ~8 min", type:"mob", items:[
+      {label:"Prep · ~8 min", type:"mob", pool:"warmup", items:[
         {id:"b_p1",name:"90/90 Hip Switches",rx:"5 / side"},
         {id:"b_p2",name:"Couch Stretch",rx:"45s / side"},
         {id:"b_p3",name:"Cat-Cow",rx:"8 reps"},
@@ -467,7 +607,7 @@ const PROGRAM = [
         {id:"b6",name:"Standing Calf Raise",sets:4,rx:"8–12",tags:["calf"],pattern:"calf"},
         {id:"b7",name:"Lateral Raise",sets:3,rx:"12–15",tags:["delts"],pattern:"delts"},
       ]},
-      {label:"Core + Finisher", type:"aux", items:[
+      {label:"Core + Finisher", type:"aux", pool:"core", items:[
         {id:"b_f1",name:"Pallof Press",rx:"3 × 10 / side"},
         {id:"b_f2",name:"Dead Hang",rx:"2 × max"},
       ]},
@@ -478,7 +618,7 @@ const PROGRAM = [
     name:"Accessory & Mobility",
     desc:"Hip/pelvis/lumbar reset day with heavy core volume — anti-extension, anti-rotation, anti-lateral-flexion, and flexion all covered. Use as the 4th day, or as a recovery session when you only get 3 lifts in.",
     blocks:[
-      {label:"Mobility Block · ~15 min", type:"mob", items:[
+      {label:"Mobility Block · ~15 min", type:"mob", pool:"warmup", items:[
         {id:"m_p1",name:"Couch Stretch",rx:"60s / side"},
         {id:"m_p2",name:"90/90 With Forward Reach",rx:"8 / side"},
         {id:"m_p3",name:"Frog Stretch",rx:"60s"},
@@ -493,7 +633,7 @@ const PROGRAM = [
         {id:"m4",name:"Cable Fly",sets:3,rx:"15",tags:["chest"],pattern:"push-iso"},
         {id:"m5",name:"Lateral Raise",sets:3,rx:"15",tags:["delts"],pattern:"delts"},
       ]},
-      {label:"Core · High Volume", type:"aux", items:[
+      {label:"Core · High Volume", type:"aux", pool:"core", items:[
         {id:"m_c1",name:"Hanging Leg Raise",rx:"3 × 15"},
         {id:"m_c2",name:"Cable Crunch",rx:"3 × 15–20"},
         {id:"m_c3",name:"Copenhagen Plank",rx:"3 × 20–30s / side"},
@@ -503,7 +643,7 @@ const PROGRAM = [
         {id:"m_c7",name:"Bird Dog",rx:"3 × 8 / side"},
         {id:"m_c8",name:"Dead Bug + Hollow Hold",rx:"3 rounds"},
       ]},
-      {label:"Stretch / Decompress", type:"mob", items:[
+      {label:"Stretch / Decompress", type:"mob", pool:"cooldown", items:[
         {id:"m_f1",name:"Dead Hang",rx:"3 × max — decompress"},
       ]},
     ]
@@ -652,6 +792,77 @@ const MENU = {
   ],
 };
 
+//// ---------- MOBILITY / AUX MENU ----------
+const MOBILITY_MENU = {
+  "warmup": [
+    {name:"90/90 Hip Switches", rx:"5 / side"},
+    {name:"90/90 Breathing", rx:"5 breaths"},
+    {name:"Couch Stretch", rx:"45s / side"},
+    {name:"Half-Kneel Hip Flexor + Reach", rx:"30s / side"},
+    {name:"Adductor Rock-Backs", rx:"8 reps"},
+    {name:"Bird Dog", rx:"6 / side"},
+    {name:"Dead Bug", rx:"6 / side"},
+    {name:"Glute Bridge", rx:"12 reps"},
+    {name:"Cat-Cow", rx:"8 reps"},
+    {name:"World's Greatest Stretch", rx:"5 / side"},
+    {name:"Hip CARs", rx:"5 / side"},
+    {name:"Thoracic Open-Books", rx:"8 / side"},
+    {name:"Frog Stretch", rx:"60s"},
+    {name:"Banded Hip Distraction", rx:"45s / side"},
+    {name:"Wall Slides", rx:"10 reps"},
+    {name:"Band Pull-Aparts", rx:"15 reps"},
+  ],
+  "cooldown": [
+    {name:"Dead Hang", rx:"2 × 45–60s"},
+    {name:"Doorway Pec Stretch", rx:"30s / side"},
+    {name:"Couch Stretch", rx:"60s / side"},
+    {name:"Pigeon Pose", rx:"90s / side"},
+    {name:"Standing Forward Fold", rx:"60s"},
+    {name:"Supine Figure-4", rx:"60s / side"},
+    {name:"Child's Pose + Side Reach", rx:"30s each way"},
+    {name:"Lat Stretch (hang)", rx:"45s / side"},
+    {name:"Lying Hamstring Stretch (band)", rx:"45s / side"},
+    {name:"Spinal Twist (supine)", rx:"60s / side"},
+    {name:"Wall Quad Stretch", rx:"45s / side"},
+  ],
+  "core": [
+    {name:"Hanging Leg Raise", rx:"3 × 12–15"},
+    {name:"Weighted Hanging Leg Raise", rx:"3 × 10–12"},
+    {name:"Cable Crunch", rx:"3 × 15–20"},
+    {name:"Weighted Cable Crunch", rx:"3 × 10–12"},
+    {name:"Ab Wheel", rx:"3 × 8–12"},
+    {name:"Hollow Body Rocks", rx:"3 × 20"},
+    {name:"Hollow Body Hold", rx:"3 × 30s"},
+    {name:"Copenhagen Plank", rx:"3 × 20–30s / side"},
+    {name:"Pallof Press", rx:"3 × 12 / side"},
+    {name:"Cable Woodchop", rx:"3 × 12 / side"},
+    {name:"Suitcase Carry", rx:"3 × 40m / side"},
+    {name:"Weighted Decline Sit-Up", rx:"3 × 10–12"},
+    {name:"Dragon Flag", rx:"3 × 5"},
+    {name:"L-Sit Hold", rx:"3 × max"},
+    {name:"Bird Dog", rx:"3 × 8 / side"},
+    {name:"Dead Bug", rx:"3 × 8 / side"},
+  ],
+  "finisher": [
+    {name:"Dead Hang", rx:"2 × max"},
+    {name:"Pallof Press", rx:"3 × 10 / side"},
+    {name:"Suitcase Carry", rx:"2 × 40m"},
+    {name:"Farmer's Walk", rx:"3 × 40m"},
+    {name:"Sled Push", rx:"3 × 20m"},
+    {name:"Bird Dog", rx:"3 × 8 / side"},
+    {name:"Dead Bug + Hollow Hold", rx:"3 rounds"},
+    {name:"Hollow Body Hold", rx:"3 × 30s"},
+    {name:"Doorway Pec Stretch", rx:"30s / side"},
+  ],
+};
+
+const POOL_LABELS = {
+  "warmup": "Warm-Up & Mobility",
+  "cooldown": "Stretch & Decompress",
+  "core": "Core",
+  "finisher": "Finisher / Decompression",
+};
+
 //// ---------- STORAGE (localStorage — works on Vercel) ----------
 const KEY = "datman:v2";
 let DATA = {log:{}, done:{}, notes:{}, sessNotes:{}, swaps:{}};
@@ -659,13 +870,16 @@ let DATA = {log:{}, done:{}, notes:{}, sessNotes:{}, swaps:{}};
 async function loadData(){
   try{
     const r = localStorage.getItem(KEY);
-    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{}};
-  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{}}; }
+    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]};
+  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]}; }
   if(!DATA.log) DATA.log={};
   if(!DATA.done) DATA.done={};
   if(!DATA.notes) DATA.notes={};
   if(!DATA.sessNotes) DATA.sessNotes={};
   if(!DATA.swaps) DATA.swaps={};
+  if(!DATA.setCounts) DATA.setCounts={};
+  if(!DATA.auxItems) DATA.auxItems={};
+  if(!DATA.cardio) DATA.cardio=[];
   if(!DATA.finished) DATA.finished={};
   // Garbage collect: remove yesterday's and older "finished" flags
   const todayStr = new Date().toISOString().slice(0,10);
@@ -763,11 +977,15 @@ function liftCard(ex, idx){
                (b?`<span class="e1">e1RM <b>${b.e}</b></span>`:"");
   }
   let rows="";
+  // Determine actual set count: program default OR user's override OR today's actual logged sets
+  const savedSetCount = (DATA.setCounts && DATA.setCounts[ex.id]) || 0;
   // A set is "checked" if it exists in today's logged entry with values
-  const todayLog = (DATA.log[currentName] || []).find(e => e.date === todayStr);
+  // BUT if the session is finished, treat visual state as fresh (no checks, no completion)
+  const todayLog = isFinished ? null : (DATA.log[currentName] || []).find(e => e.date === todayStr);
   const checkedSets = todayLog ? todayLog.sets.map(s => s.w > 0 && s.r > 0) : [];
-  const allChecked = checkedSets.length >= ex.sets && checkedSets.slice(0, ex.sets).every(Boolean);
-  for(let i=0;i<ex.sets;i++){
+  const setCount = Math.max(ex.sets, savedSetCount, todayLog ? todayLog.sets.length : 0);
+  const allChecked = !isFinished && checkedSets.length >= setCount && checkedSets.slice(0, setCount).every(Boolean);
+  for(let i=0;i<setCount;i++){
     const pv = useTodayPrefill && last.sets[i] ? last.sets[i] : null;
     const isChecked = !!checkedSets[i];
     rows += `<div class="srow ${isChecked ? 'locked' : ''}">
@@ -781,9 +999,9 @@ function liftCard(ex, idx){
       <button class="setcheck ${isChecked ? 'checked' : ''}" data-act="setcheck" data-ex="${ex.id}" data-i="${i}" aria-label="Mark set complete">${isChecked ? '✓' : '○'}</button>
     </div>`;
   }
-  const tags = `<span class="tag rx">${ex.sets} × ${ex.rx}</span>` + (ex.tags||[]).map(tagHTML).join("");
+  const tags = `<span class="tag rx">${setCount} × ${ex.rx}</span>` + (ex.tags||[]).map(tagHTML).join("");
   const noteVal = (DATA.notes[currentName] || "").replace(/"/g,'&quot;');
-  return `<div class="card lift ${allChecked ? 'complete' : ''}" data-card="${ex.id}" data-sets="${ex.sets}">
+  return `<div class="card lift ${allChecked ? 'complete' : ''}" data-card="${ex.id}" data-sets="${setCount}">
     <div class="chead">
       <div class="ix">${idx}</div>
       <div class="ttl"><div class="name">${currentName}</div><div class="tags">${tags}</div></div>
@@ -808,17 +1026,105 @@ function liftCard(ex, idx){
     <div class="hist" data-hist="${ex.id}"></div>
   </div>`;
 }
-function auxCard(it, mob){
+function auxCard(it, mob, ctx){
   const done = DATA.done[it.id]===today();
+  const editable = !!ctx;
   return `<div class="card"><div class="aux ${mob?'mob':''}">
     <div class="ai">${mob?'›':'▸'}</div>
     <div class="an"><div class="name">${it.name}</div><div class="rx">${it.rx}</div></div>
+    ${editable ? `<button class="aux-edit" data-act="auxmenu" data-day="${ctx.dayId}" data-block="${encodeURIComponent(ctx.blockLabel)}" data-pool="${ctx.pool}" data-idx="${ctx.idx}" aria-label="Edit">⋯</button>` : ''}
     <button class="donebtn ${done?'done':''}" data-act="done" data-id="${it.id}">${done?'✓':''}</button>
   </div></div>`;
 }
+
+//// ---------- AUX ITEMS (customizable warm-ups, core, finishers) ----------
+function getAuxItems(dayId, block){
+  const key = dayId + ":" + block.label;
+  if(DATA.auxItems && DATA.auxItems[key]) return DATA.auxItems[key];
+  return block.items;
+}
+function ensureAuxOverride(dayId, block){
+  const key = dayId + ":" + block.label;
+  if(!DATA.auxItems) DATA.auxItems = {};
+  if(!DATA.auxItems[key]){
+    DATA.auxItems[key] = block.items.map(it => ({...it}));
+  }
+  return DATA.auxItems[key];
+}
+function findAuxBlock(dayId, blockLabel){
+  const day = PROGRAM.find(d => d.id === dayId);
+  if(!day || !day.blocks) return null;
+  return day.blocks.find(b => b.label === blockLabel) || null;
+}
+async function swapAuxItem(dayId, blockLabel, idx, newName, newRx){
+  const block = findAuxBlock(dayId, blockLabel); if(!block) return;
+  const items = ensureAuxOverride(dayId, block);
+  // New id so done state resets — it's a different move now
+  items[idx] = {id: 'aux_' + Date.now() + '_' + Math.floor(Math.random()*9999), name: newName, rx: newRx};
+  await saveData();
+  closeAuxModal();
+  renderPanel();
+}
+async function addAuxItem(dayId, blockLabel, newName, newRx){
+  const block = findAuxBlock(dayId, blockLabel); if(!block) return;
+  const items = ensureAuxOverride(dayId, block);
+  items.push({id: 'aux_' + Date.now() + '_' + Math.floor(Math.random()*9999), name: newName, rx: newRx});
+  await saveData();
+  closeAuxModal();
+  renderPanel();
+}
+async function deleteAuxItem(dayId, blockLabel, idx){
+  const block = findAuxBlock(dayId, blockLabel); if(!block) return;
+  const items = ensureAuxOverride(dayId, block);
+  if(items[idx] && DATA.done[items[idx].id]) delete DATA.done[items[idx].id];
+  items.splice(idx, 1);
+  await saveData();
+  closeAuxModal();
+  renderPanel();
+}
+async function revertAuxBlock(dayId, blockLabel){
+  const key = dayId + ":" + blockLabel;
+  if(DATA.auxItems && DATA.auxItems[key]) delete DATA.auxItems[key];
+  await saveData();
+  closeAuxModal();
+  renderPanel();
+}
+
 function cardioPanel(){
+  const sessions = (DATA.cardio || []).slice().sort((a,b) => b.date.localeCompare(a.date));
+  const recent = sessions.slice(0, 30);
+  let listHTML = "";
+  if(recent.length === 0){
+    listHTML = `<div class="cardio-empty">No cardio sessions logged yet.<br>Tap the button above after a run, tennis match, or bike to log it.</div>`;
+  } else {
+    listHTML = recent.map(s => {
+      const dt = new Date(s.date + "T00:00:00").toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      const stats = [];
+      if(s.duration) stats.push(`<b>${s.duration}</b> min`);
+      if(s.distance) stats.push(`<b>${s.distance}</b> mi`);
+      if(s.hr) stats.push(`<b>${s.hr}</b> bpm`);
+      if(s.rpe) stats.push(`RPE <b>${s.rpe}</b>`);
+      return `<div class="cardio-session">
+        <div class="cs-main">
+          <div class="cs-top"><span class="cs-type">${s.type}</span><span class="cs-date">${dt}</span></div>
+          <div class="cs-stats">${stats.join(' · ')}</div>
+          ${s.notes ? `<div class="cs-notes">"${s.notes.replace(/"/g,'&quot;')}"</div>` : ''}
+        </div>
+        <button class="cs-del" data-act="delcardio" data-id="${s.id}" aria-label="Delete">×</button>
+      </div>`;
+    }).join("");
+  }
   return `<div class="day-head"><div class="focus">Zone 2 · Aerobic Base</div><h2>Z2 Cardio</h2>
     <p>2× per week, 30–45 min. ~60–70% max HR — conversational pace. You can talk in full sentences but wouldn't want to sing.</p></div>
+
+    <div class="cardio-actions">
+      <button class="cardio-log-btn" data-act="logcardio">+ Log Cardio Session</button>
+    </div>
+
+    <div class="seclabel"><span class="seclabel-text">Recent Sessions</span></div>
+    <div class="cardio-list">${listHTML}</div>
+
+    <div class="seclabel" style="margin-top:24px"><span class="seclabel-text">Reference</span></div>
     <div class="cardio">
       <div class="zbox"><h3>Placement</h3><p>Default Tue &amp; Thu — separated from lifting. If you must combine, run Z2 <b>after</b> the lift, never before.</p></div>
       <div class="zbox"><h3>Low-Impact Picks</h3><p>Easier on the joints at 6'5". Pick whatever you'll actually do consistently.</p>
@@ -837,11 +1143,21 @@ function renderPanel(){
   }
   let liftIdx=0;
   d.blocks.forEach(bl=>{
-    html += `<div class="seclabel">${bl.label}</div>`;
     if(bl.type==="lift"){
+      html += `<div class="seclabel">${bl.label}</div>`;
       bl.items.forEach(ex=>{ liftIdx++; html += liftCard(ex, String(liftIdx).padStart(2,"0")); });
     } else {
-      bl.items.forEach(it=> html += auxCard(it, bl.type==="mob"));
+      const items = getAuxItems(d.id, bl);
+      const editable = !!bl.pool;
+      const addBtn = editable ? `<button class="add-aux" data-act="addaux" data-day="${d.id}" data-block="${encodeURIComponent(bl.label)}" data-pool="${bl.pool}">+ Add</button>` : '';
+      html += `<div class="seclabel"><span class="seclabel-text">${bl.label}</span>${addBtn}</div>`;
+      items.forEach((it, idx) => {
+        const ctx = editable ? {dayId: d.id, blockLabel: bl.label, pool: bl.pool, idx} : null;
+        html += auxCard(it, bl.type==="mob", ctx);
+      });
+      if(editable && items.length === 0){
+        html += `<div class="aux-empty">No items — tap + Add above to build this block.</div>`;
+      }
     }
   });
   // Session notes box
@@ -960,18 +1276,45 @@ function addSet(slotId,delta){
   const card=document.querySelector(`.card[data-card="${slotId}"]`); if(!card)return;
   let n=parseInt(card.dataset.sets,10);
   const grid=card.querySelector(".sets-grid");
+  const slot=findSlot(slotId);
   if(delta>0){
     const i=n;
     const div=document.createElement("div");
     div.className="srow";
     div.innerHTML=`<div class="sn">${i+1}</div>
       <div class="field"><input inputmode="decimal" data-f="w" data-ex="${slotId}" data-i="${i}" placeholder="0"><span class="u">lb</span></div>
-      <div class="field"><input inputmode="numeric" data-f="r" data-ex="${slotId}" data-i="${i}" placeholder="0"><span class="u">rep</span></div>`;
+      <div class="field"><input inputmode="numeric" data-f="r" data-ex="${slotId}" data-i="${i}" placeholder="0"><span class="u">rep</span></div>
+      <button class="setcheck" data-act="setcheck" data-ex="${slotId}" data-i="${i}" aria-label="Mark set complete">○</button>`;
     grid.appendChild(div); n++;
   } else if(n>1){
+    // Remove last row from DOM; if today's log had a set at that index, drop it too
+    if(slot){
+      const currentName=liftName(slotId,slot.name);
+      const todayStr=today();
+      const entry=(DATA.log[currentName]||[]).find(e=>e.date===todayStr);
+      if(entry && entry.sets.length >= n){
+        entry.sets.splice(n-1,1);
+        if(entry.sets.every(s=>!s.w && !s.r)){
+          DATA.log[currentName]=DATA.log[currentName].filter(e=>e!==entry);
+          if(DATA.log[currentName].length===0) delete DATA.log[currentName];
+        }
+      }
+    }
     grid.lastElementChild.remove(); n--;
+    // Card complete state may have flipped (e.g., removing the last unchecked set)
+    updateCardCompleteState(slotId);
+    refreshLast(slotId);
   }
   card.dataset.sets=n;
+  // Persist user's preferred set count for this slot
+  DATA.setCounts = DATA.setCounts || {};
+  const defaultCount = slot ? slot.sets : n;
+  if(n === defaultCount) delete DATA.setCounts[slotId];
+  else DATA.setCounts[slotId] = n;
+  // Update the tag pill to reflect new count
+  const tagRx = card.querySelector(".tag.rx");
+  if(tagRx && slot){ tagRx.textContent = `${n} × ${slot.rx}`; }
+  saveData();
 }
 async function toggleDone(id){
   if(DATA.done[id]===today()) delete DATA.done[id];
@@ -986,6 +1329,15 @@ async function toggleSetCheck(slotId, setIdx){
   const slot = findSlot(slotId); if(!slot) return;
   const currentName = liftName(slotId, slot.name);
   const todayStr = today();
+
+  // If this slot was "finished" today, resuming = restore the visual state from the existing data
+  const sessFinishedKey = "finished|" + slotId + "|" + todayStr;
+  if(DATA.finished && DATA.finished[sessFinishedKey]){
+    delete DATA.finished[sessFinishedKey];
+    await saveData();
+    renderPanel();
+    return; // user can tap again now that visual is restored
+  }
 
   // Read current input values for this set
   const wEl = document.querySelector(`input[data-ex="${slotId}"][data-f="w"][data-i="${setIdx}"]`);
@@ -1199,15 +1551,27 @@ function openSessionSummary(){
     `).join("");
     if(prCount > 0){
       html += `<div style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--pr);letter-spacing:.05em;text-align:center;font-weight:600">★ ${prCount} ${prCount === 1 ? 'PR' : 'PRs'} this session — beat them next time.</div>`;
+    } else {
+      html += `<div style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.05em;text-align:center">Session logged. Beat these numbers next time.</div>`;
     }
-    // Mark all of this day's lifts as "finished" for today, so inputs clear on next render
+    body.innerHTML = html;
+
+    // Mark every lift in this day as "finished" (visual reset on close)
+    // AND clear every aux item's done flag (mobility, cool-down, finishers)
     (d.blocks||[]).forEach(bl => {
-      if(bl.type !== "lift") return;
       (bl.items||[]).forEach(item => {
-        DATA.finished[`finished|${item.id}|${todayStr}`] = true;
+        if(bl.type === "lift"){
+          DATA.finished[`finished|${item.id}|${todayStr}`] = true;
+        } else {
+          // mobility / aux / finisher / mob — clear today's done flag
+          if(DATA.done[item.id]) delete DATA.done[item.id];
+        }
       });
     });
     saveData();
+    // CRITICAL: re-render IMMEDIATELY so visual state (greens, checks, card borders) resets
+    // before the modal opens. Doesn't rely on closeSummary firing correctly.
+    renderPanel();
   }
   document.getElementById("summaryModal").classList.add("open");
 }
@@ -1217,7 +1581,116 @@ function closeSummary(){
   renderPanel();
 }
 
+//// ---------- AUX MODAL (swap / add / delete prep & finisher items) ----------
+let auxCtx = null; // { mode: 'swap'|'add', dayId, blockLabel, pool, idx }
+
+function openAuxAction(dayId, blockLabel, pool, idx){
+  // Action sheet: tap an item's ⋯ → show swap options + delete
+  auxCtx = { mode: 'swap', dayId, blockLabel, pool, idx };
+  const block = findAuxBlock(dayId, blockLabel);
+  const items = block ? getAuxItems(dayId, block) : [];
+  const currentItem = items[idx];
+  document.getElementById("auxTitle").textContent = currentItem ? `Edit: ${currentItem.name}` : "Edit";
+  document.getElementById("auxSub").innerHTML = `<b>${POOL_LABELS[pool] || pool}</b> · pick a replacement, delete, or cancel`;
+  renderAuxOpts(pool, currentItem ? currentItem.name : null);
+  document.getElementById("auxDeleteBtn").style.display = "block";
+  document.getElementById("auxRevertBtn").style.display = "block";
+  document.getElementById("auxModal").classList.add("open");
+}
+
+function openAuxAdd(dayId, blockLabel, pool){
+  auxCtx = { mode: 'add', dayId, blockLabel, pool, idx: null };
+  document.getElementById("auxTitle").textContent = "Add item";
+  document.getElementById("auxSub").innerHTML = `<b>${POOL_LABELS[pool] || pool}</b> · pick a move to add to this block`;
+  renderAuxOpts(pool, null);
+  document.getElementById("auxDeleteBtn").style.display = "none";
+  document.getElementById("auxRevertBtn").style.display = "block";
+  document.getElementById("auxModal").classList.add("open");
+}
+
+function renderAuxOpts(pool, currentName){
+  const opts = MOBILITY_MENU[pool] || [];
+  const optsEl = document.getElementById("auxOpts");
+  optsEl.innerHTML = "";
+  opts.forEach(o => {
+    const div = document.createElement("div");
+    div.className = "sw-opt" + (o.name === currentName ? " current" : "");
+    div.innerHTML = `
+      <div style="flex:1;min-width:0">
+        <div class="nm">${o.name}</div>
+        <div class="nmsub">${o.rx}</div>
+      </div>
+    `;
+    div.onclick = () => pickAux(o.name, o.rx);
+    optsEl.appendChild(div);
+  });
+}
+
+function pickAux(name, rx){
+  if(!auxCtx) return;
+  if(auxCtx.mode === 'swap'){
+    swapAuxItem(auxCtx.dayId, auxCtx.blockLabel, auxCtx.idx, name, rx);
+  } else {
+    addAuxItem(auxCtx.dayId, auxCtx.blockLabel, name, rx);
+  }
+}
+
+function closeAuxModal(){
+  document.getElementById("auxModal").classList.remove("open");
+  auxCtx = null;
+}
+
+//// ---------- CARDIO LOG ----------
+function openCardioModal(){
+  // Reset form
+  document.querySelectorAll("#cdTypes button").forEach(b => b.classList.remove("active"));
+  document.querySelector('#cdTypes button[data-type="Run"]').classList.add("active");
+  document.getElementById("cdDuration").value = "";
+  document.getElementById("cdDistance").value = "";
+  document.getElementById("cdHR").value = "";
+  document.getElementById("cdRPE").value = "";
+  document.getElementById("cdNotes").value = "";
+  document.getElementById("cardioModal").classList.add("open");
+}
+function closeCardioModal(){
+  document.getElementById("cardioModal").classList.remove("open");
+}
+async function saveCardio(){
+  const activeType = document.querySelector("#cdTypes button.active");
+  const type = activeType ? activeType.dataset.type : "Other";
+  const duration = parseFloat(document.getElementById("cdDuration").value) || 0;
+  const distance = parseFloat(document.getElementById("cdDistance").value) || 0;
+  const hr = parseInt(document.getElementById("cdHR").value) || 0;
+  const rpe = parseInt(document.getElementById("cdRPE").value) || 0;
+  const notes = document.getElementById("cdNotes").value.trim();
+  if(!duration){ alert("Enter at least a duration."); return; }
+  DATA.cardio = DATA.cardio || [];
+  DATA.cardio.push({
+    id: 'cd_' + Date.now(),
+    date: today(),
+    type, duration, distance, hr, rpe, notes
+  });
+  // Cap history at 200 sessions
+  if(DATA.cardio.length > 200) DATA.cardio = DATA.cardio.slice(-200);
+  await saveData();
+  closeCardioModal();
+  renderPanel();
+}
+async function deleteCardio(id){
+  if(!confirm("Delete this cardio session?")) return;
+  DATA.cardio = (DATA.cardio || []).filter(s => s.id !== id);
+  await saveData();
+  renderPanel();
+}
+
 //// ---------- EVENTS ----------
+document.getElementById("summaryModal").addEventListener("click", e => {
+  if(e.target.id === "summaryModal") closeSummary();
+});
+document.getElementById("swapModal").addEventListener("click", e => {
+  if(e.target.id === "swapModal") closeSwap();
+});
+
 tabsEl.addEventListener("click",e=>{
   const t=e.target.closest(".tab"); if(!t)return;
   active=t.dataset.tab; renderTabs(); renderPanel();
@@ -1235,6 +1708,38 @@ mainEl.addEventListener("click",e=>{
   else if(act==="revert") revertSwap(b.dataset.ex);
   else if(act==="finish") openSessionSummary();
   else if(act==="setcheck") toggleSetCheck(b.dataset.ex, parseInt(b.dataset.i, 10));
+  else if(act==="auxmenu") openAuxAction(b.dataset.day, decodeURIComponent(b.dataset.block), b.dataset.pool, parseInt(b.dataset.idx, 10));
+  else if(act==="addaux") openAuxAdd(b.dataset.day, decodeURIComponent(b.dataset.block), b.dataset.pool);
+  else if(act==="logcardio") openCardioModal();
+  else if(act==="delcardio") deleteCardio(b.dataset.id);
+});
+
+// Wire aux modal delete & revert buttons
+document.getElementById("auxDeleteBtn").addEventListener("click", () => {
+  if(!auxCtx || auxCtx.mode !== 'swap') return;
+  if(!confirm("Delete this item from the block?")) return;
+  deleteAuxItem(auxCtx.dayId, auxCtx.blockLabel, auxCtx.idx);
+});
+document.getElementById("auxRevertBtn").addEventListener("click", () => {
+  if(!auxCtx) return;
+  if(!confirm("Reset this entire block to the default lineup?")) return;
+  revertAuxBlock(auxCtx.dayId, auxCtx.blockLabel);
+});
+
+// Cardio type pills
+document.getElementById("cdTypes").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-type]");
+  if(!btn) return;
+  document.querySelectorAll("#cdTypes button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+});
+
+// Backdrop tap-to-close on all modals
+document.getElementById("auxModal").addEventListener("click", e => {
+  if(e.target.id === "auxModal") closeAuxModal();
+});
+document.getElementById("cardioModal").addEventListener("click", e => {
+  if(e.target.id === "cardioModal") closeCardioModal();
 });
 // Notes — save on blur (not every keystroke)
 mainEl.addEventListener("blur", e => {
@@ -1247,7 +1752,7 @@ mainEl.addEventListener("blur", e => {
 
 document.getElementById("reset").addEventListener("click",async()=>{
   if(!confirm("Erase ALL data — logs, notes, swaps, history? This can't be undone.")) return;
-  DATA={log:{},done:{},notes:{},sessNotes:{},swaps:{}};
+  DATA={log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]};
   await saveData(); renderPanel();
 });
 document.getElementById("export").addEventListener("click",()=>{
