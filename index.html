@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="DATMAN">
+<meta name="apple-mobile-web-app-title" content="Summer Protocol">
 <meta name="theme-color" content="#d8141f">
-<title>DATMAN — Modular Full Body</title>
+<title>Summer Protocol — Modular Full Body</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -389,6 +389,50 @@
 
   /* Loading */
   .loading{text-align:center;padding:60px 0;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em}
+
+  /* Reorder arrows */
+  .reorder{display:flex;flex-direction:column;gap:2px;margin-right:6px;flex:0 0 auto}
+  .rbtn{
+    background:var(--surface3);border:1px solid var(--line);color:var(--muted);
+    width:30px;height:21px;border-radius:6px;cursor:pointer;font-size:9px;line-height:1;transition:.12s;padding:0;display:grid;place-items:center
+  }
+  .rbtn:hover{color:var(--text);border-color:var(--text)}
+  .rbtn.dim{opacity:.3;pointer-events:none}
+
+  /* Custom / added badges */
+  .custom-badge{
+    font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+    background:var(--accent-dim);color:var(--accent);padding:2px 5px;border-radius:4px;vertical-align:2px;margin-left:5px
+  }
+
+  /* Danger minibtn (remove lift) */
+  .minibtn.danger{border-style:solid;border-color:rgba(216,20,31,.3);color:var(--accent)}
+  .minibtn.danger:hover{background:rgba(216,20,31,.06);border-color:var(--accent)}
+
+  /* Pattern group label in add-lift sheet */
+  .pattern-group-label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+    font-weight:600;margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)
+  }
+  .pattern-group-label:first-child{margin-top:4px}
+
+  /* Add-custom row in sheets */
+  .add-custom-row{
+    width:100%;background:transparent;border:1px dashed var(--line2);color:var(--muted);
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    padding:13px;border-radius:9px;margin-top:10px;cursor:pointer;transition:.12s
+  }
+  .add-custom-row:hover{color:var(--accent);border-color:var(--accent);background:rgba(216,20,31,.04)}
+
+  /* Pool toggle in aux modal */
+  .pool-toggle{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .pool-tab{
+    flex:1 1 auto;background:var(--surface);border:1px solid var(--line2);color:var(--muted);
+    font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.04em;
+    padding:9px 8px;border-radius:8px;cursor:pointer;transition:.12s;white-space:nowrap
+  }
+  .pool-tab:hover{color:var(--text);border-color:var(--text)}
+  .pool-tab.active{background:var(--text);color:#fff;border-color:var(--text)}
   .blink{animation:bl 1s steps(2) infinite}@keyframes bl{50%{opacity:.3}}
 </style>
 </head>
@@ -422,6 +466,7 @@
   <div class="modal">
     <h3 id="auxTitle">—</h3>
     <div class="mh-sub" id="auxSub">—</div>
+    <div class="pool-toggle" id="auxPoolToggle" style="display:none"></div>
     <div id="auxOpts"></div>
     <button class="aux-delete" id="auxDeleteBtn" style="display:none">Delete this item</button>
     <button class="aux-revert" id="auxRevertBtn" style="display:none">Reset block to default</button>
@@ -477,7 +522,7 @@
 <div class="wrap">
   <header>
     <div class="kicker">Modular Full Body // Progressive Overload</div>
-    <h1>DATMAN</h1>
+    <h1>Summer<span class="l2">Protocol</span></h1>
     <div class="profile">
       <span class="chip red">29 YRS</span>
       <span class="chip">6'5"</span>
@@ -863,15 +908,48 @@ const POOL_LABELS = {
   "finisher": "Finisher / Decompression",
 };
 
+//// ---------- MERGED POOLS (built-in + user custom, one shared universe) ----------
+// Lifts available for a given movement pattern = built-in MENU + user customLifts
+function liftsForPattern(pattern){
+  const builtin = MENU[pattern] || [];
+  const custom = (DATA.customLifts && DATA.customLifts[pattern]) || [];
+  // de-dupe by name (custom can't shadow builtin)
+  const seen = new Set(builtin.map(o => o.name.toLowerCase()));
+  const merged = [...builtin];
+  custom.forEach(o => { if(!seen.has(o.name.toLowerCase())){ merged.push({...o, custom:true}); seen.add(o.name.toLowerCase()); } });
+  return merged;
+}
+// Aux moves available for a pool = built-in MOBILITY_MENU + user customAux
+function auxForPool(pool){
+  const builtin = MOBILITY_MENU[pool] || [];
+  const custom = (DATA.customAux && DATA.customAux[pool]) || [];
+  const seen = new Set(builtin.map(o => o.name.toLowerCase()));
+  const merged = [...builtin];
+  custom.forEach(o => { if(!seen.has(o.name.toLowerCase())){ merged.push({...o, custom:true}); seen.add(o.name.toLowerCase()); } });
+  return merged;
+}
+function addCustomLift(pattern, name, note){
+  if(!DATA.customLifts) DATA.customLifts = {};
+  if(!DATA.customLifts[pattern]) DATA.customLifts[pattern] = [];
+  const exists = liftsForPattern(pattern).some(o => o.name.toLowerCase() === name.toLowerCase());
+  if(!exists) DATA.customLifts[pattern].push({name, note: note || "Custom"});
+}
+function addCustomAux(pool, name, rx){
+  if(!DATA.customAux) DATA.customAux = {};
+  if(!DATA.customAux[pool]) DATA.customAux[pool] = [];
+  const exists = auxForPool(pool).some(o => o.name.toLowerCase() === name.toLowerCase());
+  if(!exists) DATA.customAux[pool].push({name, rx: rx || ""});
+}
+
 //// ---------- STORAGE (localStorage — works on Vercel) ----------
-const KEY = "datman:v2";
+const KEY = "datman:v2";  // storage key kept stable so existing data persists
 let DATA = {log:{}, done:{}, notes:{}, sessNotes:{}, swaps:{}};
 
 async function loadData(){
   try{
     const r = localStorage.getItem(KEY);
-    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]};
-  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]}; }
+    DATA = r ? JSON.parse(r) : {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[],customLifts:{},customAux:{}};
+  }catch(e){ DATA = {log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[],customLifts:{},customAux:{}}; }
   if(!DATA.log) DATA.log={};
   if(!DATA.done) DATA.done={};
   if(!DATA.notes) DATA.notes={};
@@ -880,6 +958,9 @@ async function loadData(){
   if(!DATA.setCounts) DATA.setCounts={};
   if(!DATA.auxItems) DATA.auxItems={};
   if(!DATA.cardio) DATA.cardio=[];
+  if(!DATA.customLifts) DATA.customLifts={};   // { pattern: [ {name, note} ] }  — user-added lifts joined to the shared menu
+  if(!DATA.customAux) DATA.customAux={};       // { pool: [ {name, rx} ] }       — user-added mobility/core moves joined to shared pools
+  if(!DATA.addedSlots) DATA.addedSlots={};     // { dayId: [ {id,name,pattern,sets,rx,tags} ] } — extra lift slots added to a day
   if(!DATA.finished) DATA.finished={};
   // Garbage collect: remove yesterday's and older "finished" flags
   const todayStr = new Date().toISOString().slice(0,10);
@@ -958,7 +1039,7 @@ function tagHTML(t){
   const cls = TAGCLASS[t] ? " "+TAGCLASS[t] : "";
   return `<span class="tag${cls}">${t}</span>`;
 }
-function liftCard(ex, idx){
+function liftCard(ex, idx, isAdded){
   const currentName = liftName(ex.id, ex.name);
   const swapped = currentName !== ex.name;
   const last = lastEntry(currentName);
@@ -1004,7 +1085,7 @@ function liftCard(ex, idx){
   return `<div class="card lift ${allChecked ? 'complete' : ''}" data-card="${ex.id}" data-sets="${setCount}">
     <div class="chead">
       <div class="ix">${idx}</div>
-      <div class="ttl"><div class="name">${currentName}</div><div class="tags">${tags}</div></div>
+      <div class="ttl"><div class="name">${currentName}${isAdded ? ' <span class="custom-badge">added</span>' : ''}</div><div class="tags">${tags}</div></div>
       <button class="swapbtn" data-act="swap" data-ex="${ex.id}">⇄ Swap</button>
     </div>
     ${swapped ? `<div class="swapinfo"><span class="pill">Swapped</span><span>Default: ${ex.name}</span><button data-act="revert" data-ex="${ex.id}">restore</button></div>` : ''}
@@ -1014,6 +1095,7 @@ function liftCard(ex, idx){
     <div class="setbtns">
       <button class="minibtn" data-act="addset" data-ex="${ex.id}">+ set</button>
       <button class="minibtn" data-act="delset" data-ex="${ex.id}">– set</button>
+      ${isAdded ? `<button class="minibtn danger" data-act="dellift" data-ex="${ex.id}" data-day="${ex._dayId||''}">Remove lift</button>` : ''}
     </div>
     <div class="fb" data-fb="${ex.id}"><div class="fbinner"><span class="bolt"></span><span class="v"></span></div></div>
     <div class="cfoot">
@@ -1029,9 +1111,15 @@ function liftCard(ex, idx){
 function auxCard(it, mob, ctx){
   const done = DATA.done[it.id]===today();
   const editable = !!ctx;
+  const canUp = editable && ctx.idx > 0;
+  const canDown = editable && ctx.idx < ctx.count - 1;
   return `<div class="card"><div class="aux ${mob?'mob':''}">
     <div class="ai">${mob?'›':'▸'}</div>
     <div class="an"><div class="name">${it.name}</div><div class="rx">${it.rx}</div></div>
+    ${editable ? `<div class="reorder">
+      <button class="rbtn ${canUp?'':'dim'}" data-act="auxup" data-day="${ctx.dayId}" data-block="${encodeURIComponent(ctx.blockLabel)}" data-idx="${ctx.idx}" aria-label="Move up">▲</button>
+      <button class="rbtn ${canDown?'':'dim'}" data-act="auxdown" data-day="${ctx.dayId}" data-block="${encodeURIComponent(ctx.blockLabel)}" data-idx="${ctx.idx}" aria-label="Move down">▼</button>
+    </div>` : ''}
     ${editable ? `<button class="aux-edit" data-act="auxmenu" data-day="${ctx.dayId}" data-block="${encodeURIComponent(ctx.blockLabel)}" data-pool="${ctx.pool}" data-idx="${ctx.idx}" aria-label="Edit">⋯</button>` : ''}
     <button class="donebtn ${done?'done':''}" data-act="done" data-id="${it.id}">${done?'✓':''}</button>
   </div></div>`;
@@ -1090,6 +1178,88 @@ async function revertAuxBlock(dayId, blockLabel){
   renderPanel();
 }
 
+//// ---------- AUX REORDER (up/down) ----------
+async function moveAux(dayId, blockLabel, idx, dir){
+  const block = findAuxBlock(dayId, blockLabel); if(!block) return;
+  const items = ensureAuxOverride(dayId, block);
+  const j = idx + dir;
+  if(j < 0 || j >= items.length) return;
+  const tmp = items[idx]; items[idx] = items[j]; items[j] = tmp;
+  await saveData();
+  renderPanel();
+}
+
+//// ---------- ADD / REMOVE LIFT SLOTS (per day, shared pool) ----------
+function openAddLift(dayId){
+  // Reuse the swap modal UI but in "add lift to day" mode
+  addLiftDayId = dayId;
+  document.getElementById("swapTitle").textContent = "Add a Lift";
+  document.getElementById("swapPattern").textContent = "pick a pattern below";
+  const optsEl = document.getElementById("swapOpts");
+  optsEl.innerHTML = "";
+  // Show every pattern group, each expandable to its lifts
+  Object.keys(MENU).forEach(pattern => {
+    const header = document.createElement("div");
+    header.className = "pattern-group-label";
+    header.textContent = pattern;
+    optsEl.appendChild(header);
+    liftsForPattern(pattern).forEach(o => {
+      const best = allTimeBestSet(o.name);
+      const div = document.createElement("div");
+      div.className = "sw-opt";
+      div.innerHTML = `
+        <div style="flex:1;min-width:0">
+          <div class="nm">${o.name}${o.custom ? ' <span class="custom-badge">custom</span>' : ''}</div>
+          <div class="nmsub">${o.note || ''}</div>
+        </div>
+        <div class="be ${best ? '' : 'empty'}">${best ? `${best.w}×${best.r}` : '+'}</div>
+      `;
+      div.onclick = () => addLiftToDay(dayId, pattern, o.name);
+      optsEl.appendChild(div);
+    });
+  });
+  // Add a fully custom lift
+  const addRow = document.createElement("button");
+  addRow.className = "add-custom-row";
+  addRow.textContent = "+ Create a brand-new custom lift";
+  addRow.onclick = () => {
+    const name = prompt("New lift name:");
+    if(!name || !name.trim()) return;
+    const patternOptions = Object.keys(MENU).join(", ");
+    const pattern = prompt(`Which movement pattern?\n\nOptions: ${patternOptions}`, "delts");
+    if(!pattern || !MENU[pattern]){ alert("Unknown pattern — pick exactly one from the list."); return; }
+    const note = prompt("Short note (optional):") || "Custom";
+    addCustomLift(pattern.trim(), name.trim(), note.trim());
+    saveData();
+    addLiftToDay(dayId, pattern.trim(), name.trim());
+  };
+  optsEl.appendChild(addRow);
+  document.getElementById("swapModal").classList.add("open");
+}
+let addLiftDayId = null;
+async function addLiftToDay(dayId, pattern, name){
+  if(!DATA.addedSlots) DATA.addedSlots = {};
+  if(!DATA.addedSlots[dayId]) DATA.addedSlots[dayId] = [];
+  // Default sets/reps based on pattern feel
+  const repDefault = (pattern === "delts" || pattern === "calf" || pattern.includes("iso") || pattern === "biceps" || pattern === "triceps" || pattern === "core") ? "12–15" : "8–10";
+  const id = "u_" + dayId + "_" + Date.now() + "_" + Math.floor(Math.random()*9999);
+  DATA.addedSlots[dayId].push({
+    id, name, pattern, sets: 3, rx: repDefault,
+    tags: [pattern], _dayId: dayId
+  });
+  await saveData();
+  closeSwap();
+  renderPanel();
+}
+async function deleteLiftSlot(slotId, dayId){
+  if(!confirm("Remove this lift from this day? (Your logged history for it stays saved.)")) return;
+  if(DATA.addedSlots && DATA.addedSlots[dayId]){
+    DATA.addedSlots[dayId] = DATA.addedSlots[dayId].filter(s => s.id !== slotId);
+  }
+  await saveData();
+  renderPanel();
+}
+
 function cardioPanel(){
   const sessions = (DATA.cardio || []).slice().sort((a,b) => b.date.localeCompare(a.date));
   const recent = sessions.slice(0, 30);
@@ -1142,17 +1312,24 @@ function renderPanel(){
     html += `<div class="note"><b>Modular full body:</b> Every day is complete on its own. Hit 1 of these or all 4 — you're still progressing because each session covers the whole body. <b>Tall-lifter setup:</b> Front hack squat + trap bar (Day 3) keep the torso upright and load centered. The prep block is the actual fix for the locked lower back, so don't skip it.</div>`;
   }
   let liftIdx=0;
-  d.blocks.forEach(bl=>{
+  d.blocks.forEach((bl, blockArrIdx)=>{
     if(bl.type==="lift"){
-      html += `<div class="seclabel">${bl.label}</div>`;
-      bl.items.forEach(ex=>{ liftIdx++; html += liftCard(ex, String(liftIdx).padStart(2,"0")); });
+      // Only attach the "add lift" button + user-added slots to the PRIMARY "Main Work" block
+      const isMainWork = bl.label.toLowerCase().includes("main");
+      const addLiftBtn = isMainWork ? `<button class="add-aux" data-act="addlift" data-day="${d.id}">+ Add Lift</button>` : '';
+      html += `<div class="seclabel"><span class="seclabel-text">${bl.label}</span>${addLiftBtn}</div>`;
+      bl.items.forEach(ex=>{ liftIdx++; html += liftCard(ex, String(liftIdx).padStart(2,"0"), false); });
+      // Render user-added lifts for this day right after Main Work
+      if(isMainWork && DATA.addedSlots && DATA.addedSlots[d.id]){
+        DATA.addedSlots[d.id].forEach(ex=>{ liftIdx++; html += liftCard(ex, String(liftIdx).padStart(2,"0"), true); });
+      }
     } else {
       const items = getAuxItems(d.id, bl);
       const editable = !!bl.pool;
       const addBtn = editable ? `<button class="add-aux" data-act="addaux" data-day="${d.id}" data-block="${encodeURIComponent(bl.label)}" data-pool="${bl.pool}">+ Add</button>` : '';
       html += `<div class="seclabel"><span class="seclabel-text">${bl.label}</span>${addBtn}</div>`;
       items.forEach((it, idx) => {
-        const ctx = editable ? {dayId: d.id, blockLabel: bl.label, pool: bl.pool, idx} : null;
+        const ctx = editable ? {dayId: d.id, blockLabel: bl.label, pool: bl.pool, idx, count: items.length} : null;
         html += auxCard(it, bl.type==="mob", ctx);
       });
       if(editable && items.length === 0){
@@ -1212,6 +1389,12 @@ function findSlot(slotId){
     for(const bl of d.blocks){
       if(!bl.items) continue;
       for(const it of bl.items){ if(it.id === slotId) return it; }
+    }
+  }
+  // Search user-added slots
+  if(DATA.addedSlots){
+    for(const dayId in DATA.addedSlots){
+      for(const it of DATA.addedSlots[dayId]){ if(it.id === slotId) return it; }
     }
   }
   return null;
@@ -1446,7 +1629,7 @@ function openSwap(slotId){
   const currentName = liftName(slotId, slot.name);
   document.getElementById("swapTitle").textContent = `Swap: ${currentName}`;
   document.getElementById("swapPattern").textContent = pattern;
-  const opts = MENU[pattern] || [];
+  const opts = liftsForPattern(pattern);
   const optsEl = document.getElementById("swapOpts");
   optsEl.innerHTML = "";
   opts.forEach(o => {
@@ -1454,16 +1637,31 @@ function openSwap(slotId){
     const div = document.createElement("div");
     div.className = "sw-opt" + (o.name === currentName ? " current" : "");
     div.innerHTML = `
-      <div>
-        <div class="nm">${o.name}</div>
-        <div class="nmsub">${o.note}</div>
+      <div style="flex:1;min-width:0">
+        <div class="nm">${o.name}${o.custom ? ' <span class="custom-badge">custom</span>' : ''}</div>
+        <div class="nmsub">${o.note || ''}</div>
       </div>
       <div class="be ${best ? '' : 'empty'}">${best ? `${best.w}×${best.r}<br>e1RM ${best.e}` : '— no data —'}</div>
     `;
     div.onclick = () => doSwap(slotId, o.name, slot.name);
     optsEl.appendChild(div);
   });
+  // "Add a custom lift" inline form trigger
+  const addRow = document.createElement("button");
+  addRow.className = "add-custom-row";
+  addRow.textContent = "+ Add a custom lift to this pattern";
+  addRow.onclick = () => promptCustomLift(pattern, slotId);
+  optsEl.appendChild(addRow);
   document.getElementById("swapModal").classList.add("open");
+}
+function promptCustomLift(pattern, slotId){
+  const name = prompt(`New lift name for the "${pattern}" pattern:`);
+  if(!name || !name.trim()) return;
+  const note = prompt("Short note (optional — e.g. 'upper chest', 'machine'):") || "Custom";
+  addCustomLift(pattern, name.trim(), note.trim());
+  saveData();
+  // Immediately swap the current slot to the new lift
+  doSwap(slotId, name.trim(), findSlot(slotId).name);
 }
 function closeSwap(){
   document.getElementById("swapModal").classList.remove("open");
@@ -1586,12 +1784,13 @@ let auxCtx = null; // { mode: 'swap'|'add', dayId, blockLabel, pool, idx }
 
 function openAuxAction(dayId, blockLabel, pool, idx){
   // Action sheet: tap an item's ⋯ → show swap options + delete
-  auxCtx = { mode: 'swap', dayId, blockLabel, pool, idx };
+  auxCtx = { mode: 'swap', dayId, blockLabel, pool, idx, viewPool: pool };
   const block = findAuxBlock(dayId, blockLabel);
   const items = block ? getAuxItems(dayId, block) : [];
   const currentItem = items[idx];
   document.getElementById("auxTitle").textContent = currentItem ? `Edit: ${currentItem.name}` : "Edit";
   document.getElementById("auxSub").innerHTML = `<b>${POOL_LABELS[pool] || pool}</b> · pick a replacement, delete, or cancel`;
+  renderAuxPoolToggle(pool);
   renderAuxOpts(pool, currentItem ? currentItem.name : null);
   document.getElementById("auxDeleteBtn").style.display = "block";
   document.getElementById("auxRevertBtn").style.display = "block";
@@ -1599,17 +1798,52 @@ function openAuxAction(dayId, blockLabel, pool, idx){
 }
 
 function openAuxAdd(dayId, blockLabel, pool){
-  auxCtx = { mode: 'add', dayId, blockLabel, pool, idx: null };
+  auxCtx = { mode: 'add', dayId, blockLabel, pool, idx: null, viewPool: pool };
   document.getElementById("auxTitle").textContent = "Add item";
   document.getElementById("auxSub").innerHTML = `<b>${POOL_LABELS[pool] || pool}</b> · pick a move to add to this block`;
+  renderAuxPoolToggle(pool);
   renderAuxOpts(pool, null);
   document.getElementById("auxDeleteBtn").style.display = "none";
   document.getElementById("auxRevertBtn").style.display = "block";
   document.getElementById("auxModal").classList.add("open");
 }
 
+// For core & finisher blocks, allow pulling from cooldown/mobility pools too
+function renderAuxPoolToggle(activePool){
+  const host = document.getElementById("auxPoolToggle");
+  if(!host) return;
+  const blockPool = auxCtx ? auxCtx.pool : activePool;
+  // Which pools can this block draw from?
+  let available;
+  if(blockPool === "core" || blockPool === "finisher"){
+    available = ["core", "finisher", "cooldown"];   // hang stretch/decompress alongside core
+  } else if(blockPool === "warmup"){
+    available = ["warmup"];
+  } else if(blockPool === "cooldown"){
+    available = ["cooldown", "core"];
+  } else {
+    available = [blockPool];
+  }
+  if(available.length <= 1){ host.innerHTML = ""; host.style.display = "none"; return; }
+  host.style.display = "flex";
+  host.innerHTML = available.map(p =>
+    `<button class="pool-tab ${p === activePool ? 'active' : ''}" data-viewpool="${p}">${POOL_LABELS[p] || p}</button>`
+  ).join("");
+  host.querySelectorAll(".pool-tab").forEach(btn => {
+    btn.onclick = () => {
+      const vp = btn.dataset.viewpool;
+      auxCtx.viewPool = vp;
+      renderAuxPoolToggle(vp);
+      const block = findAuxBlock(auxCtx.dayId, auxCtx.blockLabel);
+      const items = block ? getAuxItems(auxCtx.dayId, block) : [];
+      const currentName = (auxCtx.mode === 'swap' && items[auxCtx.idx]) ? items[auxCtx.idx].name : null;
+      renderAuxOpts(vp, currentName);
+    };
+  });
+}
+
 function renderAuxOpts(pool, currentName){
-  const opts = MOBILITY_MENU[pool] || [];
+  const opts = auxForPool(pool);
   const optsEl = document.getElementById("auxOpts");
   optsEl.innerHTML = "";
   opts.forEach(o => {
@@ -1617,13 +1851,26 @@ function renderAuxOpts(pool, currentName){
     div.className = "sw-opt" + (o.name === currentName ? " current" : "");
     div.innerHTML = `
       <div style="flex:1;min-width:0">
-        <div class="nm">${o.name}</div>
+        <div class="nm">${o.name}${o.custom ? ' <span class="custom-badge">custom</span>' : ''}</div>
         <div class="nmsub">${o.rx}</div>
       </div>
     `;
     div.onclick = () => pickAux(o.name, o.rx);
     optsEl.appendChild(div);
   });
+  // Add custom move to this pool
+  const addRow = document.createElement("button");
+  addRow.className = "add-custom-row";
+  addRow.textContent = "+ Create a custom move";
+  addRow.onclick = () => {
+    const name = prompt("New move name:");
+    if(!name || !name.trim()) return;
+    const rx = prompt("Sets/reps/time (e.g. '3 × 12', '60s / side'):") || "";
+    addCustomAux(pool, name.trim(), rx.trim());
+    saveData();
+    pickAux(name.trim(), rx.trim());
+  };
+  optsEl.appendChild(addRow);
 }
 
 function pickAux(name, rx){
@@ -1710,6 +1957,10 @@ mainEl.addEventListener("click",e=>{
   else if(act==="setcheck") toggleSetCheck(b.dataset.ex, parseInt(b.dataset.i, 10));
   else if(act==="auxmenu") openAuxAction(b.dataset.day, decodeURIComponent(b.dataset.block), b.dataset.pool, parseInt(b.dataset.idx, 10));
   else if(act==="addaux") openAuxAdd(b.dataset.day, decodeURIComponent(b.dataset.block), b.dataset.pool);
+  else if(act==="addlift") openAddLift(b.dataset.day);
+  else if(act==="dellift") deleteLiftSlot(b.dataset.ex, b.dataset.day);
+  else if(act==="auxup") moveAux(b.dataset.day, decodeURIComponent(b.dataset.block), parseInt(b.dataset.idx,10), -1);
+  else if(act==="auxdown") moveAux(b.dataset.day, decodeURIComponent(b.dataset.block), parseInt(b.dataset.idx,10), 1);
   else if(act==="logcardio") openCardioModal();
   else if(act==="delcardio") deleteCardio(b.dataset.id);
 });
@@ -1752,7 +2003,7 @@ mainEl.addEventListener("blur", e => {
 
 document.getElementById("reset").addEventListener("click",async()=>{
   if(!confirm("Erase ALL data — logs, notes, swaps, history? This can't be undone.")) return;
-  DATA={log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[]};
+  DATA={log:{},done:{},notes:{},sessNotes:{},swaps:{},finished:{},setCounts:{},auxItems:{},cardio:[],customLifts:{},customAux:{},addedSlots:{}};
   await saveData(); renderPanel();
 });
 document.getElementById("export").addEventListener("click",()=>{
